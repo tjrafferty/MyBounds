@@ -85,14 +85,14 @@
      */
 
     function initMap() {
-        var bounds = new google.maps.LatLngBounds();
-        var i;
 
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var myOptions = {
             zoom: 15,
             center: {lat: 33.898217, lng: -117.819665},
             mapTypeId: 'satellite'
-        });
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
         // Define the LatLng coordinates for the polygon's path.
         var propertyCoords = [
@@ -112,14 +112,24 @@
             fillOpacity: 0.15
         });
 
+        var bounds = new google.maps.LatLngBounds();
+        var i;
+
         for (i = 0; i < propertyCoords.length; i++) {
             bounds.extend(propertyCoords[i]);
         }
-
-// The Center of the Bermuda Triangle - (25.3939245, -72.473816)
-        console.log(bounds.getCenter());
-
+        
         propertyPoly.setMap(map);
+        map.setCenter(bounds.getCenter()); //or use custom center
+        map.fitBounds(bounds);
+        //remove one zoom level to ensure no marker is on the edge.
+        map.setZoom(map.getZoom() - 1);
+
+        // set a minimum zoom
+        // if you got only 1 marker or all markers are on the same address map will be zoomed too much.
+        if (map.getZoom() > 15) {
+            map.setZoom(15);
+        }
     }
 </script>
 <script async defer
