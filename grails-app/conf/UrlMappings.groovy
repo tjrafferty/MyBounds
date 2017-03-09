@@ -28,6 +28,7 @@ class UrlMappings {
         "/contact-us"(controller: 'resources', action: 'contact')
         "/privacy-policy"(controller: "resources", action: "privacy")
         "/robots.txt"(controller: 'robots', action: 'robots')
+        "/status"(controller: 'resources', action: 'status')
         "/terms-of-use"(controller: "resources", action: "terms")
 	}
 }
