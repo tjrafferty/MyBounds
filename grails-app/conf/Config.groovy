@@ -2,33 +2,38 @@
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+grails.config.locations = ["classpath:${appName}-config.properties",
+                           "classpath:${appName}-config.groovy",
+                           "file:./conf/Config.groovy",
+                           "file:./conf/DataSource.groovy",
+                           "file:${userHome}/apps/${appName}/conf/Config.groovy",
+                           "file:${userHome}/apps/${appName}/conf/DataSource.groovy",
+                           "file:${userHome}/.grails/${appName}-config.properties",
+                           "file:${userHome}/.grails/${appName}-config.groovy"]
 
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
+if (System.properties["${appName}.config.location"])
+    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
+if (System.properties["${appName}.datasource.config.location"])
+    grails.config.locations << "file:" + System.properties["${appName}.datasource.config.location"]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
-    all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
-    atom:          'application/atom+xml',
-    css:           'text/css',
-    csv:           'text/csv',
-    form:          'application/x-www-form-urlencoded',
-    html:          ['text/html','application/xhtml+xml'],
-    js:            'text/javascript',
-    json:          ['application/json', 'text/json'],
-    multipartForm: 'multipart/form-data',
-    rss:           'application/rss+xml',
-    text:          'text/plain',
-    hal:           ['application/hal+json','application/hal+xml'],
-    xml:           ['text/xml', 'application/xml']
+                      all          : '*/*', // 'all' maps to '*' or the first available format in withFormat
+                      atom         : 'application/atom+xml',
+                      css          : 'text/css',
+                      csv          : 'text/csv',
+                      form         : 'application/x-www-form-urlencoded',
+                      html         : ['text/html', 'application/xhtml+xml'],
+                      js           : 'text/javascript',
+                      json         : ['application/json', 'text/json'],
+                      multipartForm: 'multipart/form-data',
+                      rss          : 'application/rss+xml',
+                      text         : 'text/plain',
+                      hal          : ['application/hal+json', 'application/hal+xml'],
+                      xml          : ['text/xml', 'application/xml']
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -84,6 +89,42 @@ grails.hibernate.cache.queries = false
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "info@mypetcerts.com"
+        password = "keopyntnxptgeqgj"
+        props = ["mail.smtp.auth"                  : "true",
+                 "mail.smtp.socketFactory.port"    : "465",
+                 "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback": "false"]
+    }
+}
+
+// seed me
+grails.plugin.seed.autoSeed = true
+grails.plugin.seed.skipPlugins = true
+
+//twitter4j.enableTwitter4jController = true
+twitter4j {
+    enableTwitter4jController = false  // To avoid intruders to use controller all togetiberer.
+    'default' {
+        debugEnabled = false
+        OAuthConsumerKey = 'q52isOA8qIYuawsfVryXvFfZR'
+        OAuthConsumerSecret = 'uy8ulVxHGCZchgTCYKqPeorrTaKAmOqwihPslHTX4JqGRrpyd6'
+        OAuthAccessToken = '776892386756571136-ZTg6KSKl3UEmdv3pdRqQTjMGXO6bv3r'
+        OAuthAccessTokenSecret = 'AkQKZMYttNjmp0YpZFphheExPd7kyo9yCqgQlxb3fYOI0'
+    }
+}
+grails.assets.less.compile = 'less4j'
+grails.assets.plugin."twitter-bootstrap".excludes = ["**/*.less"]
+grails.assets.plugin."twitter-bootstrap".includes = ["bootstrap.less"]
+
+grails.assets.includes = ['application.less', 'login.less', 'bootstrap.less']
+grails.assets.excludes = ["**/*.less", "**/*.html"]
+// grails.assets.less.compiler = 'standard'
 
 environments {
     development {

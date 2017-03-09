@@ -6,8 +6,11 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery
+//= require jQuery.ui.1.12.1.js
+//= require jquery.jSignature.js
 //= require_tree .
 //= require_self
+//= require bootstrap
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

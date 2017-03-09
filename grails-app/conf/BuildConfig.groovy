@@ -40,17 +40,18 @@ grails.project.dependency.resolution = {
         mavenLocal()
         grailsCentral()
         mavenCentral()
-        // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo 'http://dl.bintray.com/karman/karman'
+        mavenRepo("http://mvnrepository.com/artifact/")
     }
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        // runtime 'mysql:mysql-connector-java:5.1.29'
+        runtime 'mysql:mysql-connector-java:5.1.33'
+        compile 'com.github.sommeri:less4j:1.10.0'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+        runtime "org.springframework:spring-test:4.1.6.RELEASE"
+        //Needed as dependency for rendering-plugin when used in WAR
     }
 
     plugins {
@@ -59,19 +60,45 @@ grails.project.dependency.resolution = {
 
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
-        compile ':cache:1.1.8'
-        // asset-pipeline 2.0+ requires Java 7, use version 1.9.x with Java 6
-        compile ":asset-pipeline:2.2.3"
+        compile ":cache:1.1.8"
+        compile ":asset-pipeline:2.9.1"
+        compile(":less-asset-pipeline:2.9.1") {
+            excludes "less4j"
+        }
+
+        compile ":retina-tag:2.1.1"
+        compile ":karman:0.8.3"
+        compile ":karman-aws:0.8.4"
+        compile ":selfie:0.6.3"
+        //compile ":spud-cms:0.7.1"
+        //compile ":spud-core:0.7.1"
+        //compile ":spud-media:0.6.6"
+        //compile ":spud-blog:0.7.4"
+        //compile ":spud-markdown:0.6.0"
+        compile ":mail:1.0.7"
+        compile ":ooh-la-log:1.0.2"
+        //compile ":spring-security-core:2.0.0"
+        compile ":force-ssl:1.0.4"
+        compile "org.grails.plugins:seed-me:0.7.2"
+        compile ":quartz:1.0.2"
+        compile ":qrcode:0.7"
+        compile ":twitter4j:4.0.4.3"
+        compile ":cookie:1.4"
+        compile "org.grails.plugins:rendering:1.0.0"
+        compile "org.grails.plugins:shopping-cart:0.8.2"
+        compile ":sitemaps:1.0.0"
+        //compile ":spring-security-oauth:2.0.2"
+        //compile ":spring-security-oauth-facebook:0.2"
+        //compile ':spring-security-oauth-google:0.3.1'
+        //compile ':spring-security-oauth-twitter:0.2'
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.10" // or ":hibernate:3.6.10.18"
+        runtime ":hibernate:3.6.10.18"//":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
-
-        // Uncomment these to enable additional asset-pipeline capabilities
-        //compile ":sass-asset-pipeline:1.9.0"
-        //compile ":less-asset-pipeline:1.10.0"
-        //compile ":coffee-asset-pipeline:1.8.0"
-        //compile ":handlebars-asset-pipeline:1.3.0.3"
+        runtime ":console:1.5.9"
+        runtime ":twitter-bootstrap:3.3.5"
+        runtime ":font-awesome-resources:4.3.0.2"
+        runtime ":cache-headers:1.1.7"
     }
 }
